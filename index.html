@@ -85,10 +85,18 @@
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-amber-500/10 blur-[50px] pointer-events-none"></div>
         <div class="relative z-10">
             <div class="flex justify-between items-center mb-8 px-2" dir="ltr">
+              <div class="flex justify-between items-center mb-8 px-2" dir="ltr">
                 <div class="flex items-center gap-2 px-3 py-1 bg-emerald-950/50 border border-emerald-800 rounded-full shadow-inner">
                     <div class="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_rgba(251,191,36,0.6)]"></div>
                     <span class="text-[10px] font-bold uppercase tracking-widest text-amber-200/80">Live Sync</span>
                 </div>
+                
+                <!-- NEW LISTENER BADGE -->
+                <div class="px-3 py-1 bg-emerald-950/50 rounded-full text-xs font-medium text-amber-100/80 border border-emerald-800 flex items-center gap-2 shadow-inner" dir="rtl">
+                    <i class="fa-solid fa-users text-amber-400/80 text-[10px]"></i> 
+                    <span id="listener-count" class="font-cairo">0 مستمع</span>
+                </div>
+            </div>
                 <div class="px-3 py-1 bg-emerald-950/50 rounded-full text-xs font-medium text-amber-100/80 border border-emerald-800 flex items-center gap-2 shadow-inner">
                     <i class="fa-solid fa-moon text-amber-400/80 text-[10px]"></i> Vienna, AT
                 </div>
@@ -201,6 +209,10 @@
                 intervalDisplay.innerText = data.currentInterval.replace('-', ' ← ');
                 statusText.innerText = data.statusMsg;
                 document.getElementById('time-shift-value').innerText = data.timeShiftMsg;
+                
+                // NEW: Update the listener counter!
+                document.getElementById('listener-count').innerText = `${data.listeners} مستمعين`;
+                
             } catch (error) {
                 console.log("Waiting for backend connection...");
                 statusText.innerText = "غير متصل";
