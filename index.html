@@ -141,8 +141,8 @@
             </div>
 
             <div class="flex justify-center items-center gap-8" dir="ltr">
-                <button class="w-12 h-12 rounded-full flex items-center justify-center text-emerald-400/60 hover:text-amber-400 transition-colors">
-                    <i class="fa-solid fa-volume-high"></i>
+                <button id="mute-btn" class="w-12 h-12 rounded-full flex items-center justify-center text-emerald-400/60 hover:text-amber-400 transition-colors">
+                    <i id="mute-icon" class="fa-solid fa-volume-high"></i>
                 </button>
 
                 <audio id="radio-stream" preload="none"></audio>
@@ -230,6 +230,25 @@
             isPlaying = !isPlaying;
         });
 
+// Mute Button Logic
+        const muteBtn = document.getElementById('mute-btn');
+        const muteIcon = document.getElementById('mute-icon');
+
+        muteBtn.addEventListener('click', () => {
+            // Toggle the built-in muted property
+            audio.muted = !audio.muted;
+            
+            // Swap the icons and colors based on the state
+            if (audio.muted) {
+                muteIcon.classList.remove('fa-volume-high');
+                muteIcon.classList.add('fa-volume-xmark'); // The "muted" X icon
+                muteBtn.classList.replace('text-emerald-400/60', 'text-amber-500'); // Highlight when muted
+            } else {
+                muteIcon.classList.remove('fa-volume-xmark');
+                muteIcon.classList.add('fa-volume-high'); // The normal volume icon
+                muteBtn.classList.replace('text-amber-500', 'text-emerald-400/60'); // Return to normal color
+            }
+        });
         // 4. REAL BACKEND CONNECTION (Dynamic City)
         async function fetchSyncStatus() {
             try {
